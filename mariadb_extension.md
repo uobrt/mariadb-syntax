@@ -112,8 +112,8 @@ While in the grammar, address the real bug clusters from upstream's open issues.
 
 ## Step 5 — Examples & manual test plan
 
-Add `examples/` directory with:
-- `examples/basic.sql` — covers the upstream `example.sql` cases (already in repo, port over).
+The `examples/` directory currently holds the upstream `example.sql`, `example_22.sql`, and `example.php` files (moved out of the repo root). Add to it:
+- `examples/basic.sql` — covers the upstream `example.sql` cases (consolidate from the inherited files).
 - `examples/mariadb_features.sql` — exercises every MariaDB-specific addition above (sequences, system-versioned tables, packages, regex funcs, dynamic columns, storage engines, INET types).
 - `examples/regression_as_clause.sql` — the failing cases from issues #14/#20/#24/#28/#35/#39, so we can eyeball-verify the AS fix.
 

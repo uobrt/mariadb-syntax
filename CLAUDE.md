@@ -23,7 +23,7 @@ There is no `npm run` workflow — the grammar file IS the deliverable. Iteratio
 
 1. Open the repo in VS Code.
 2. F5 (uses `.vscode/launch.json`) to spawn an Extension Development Host window.
-3. In that child window, open `example.sql` / `example_22.sql` / `example.php` and set the language to MariaDB via "Change Language Mode" (the extension does not auto-claim `.sql`).
+3. In that child window, open the `examples/` folder (it cannot be the same folder the parent window has open — VS Code refuses) and set each file's language to MariaDB via "Change Language Mode" (the extension does not auto-claim `.sql`).
 4. Edit `syntaxes/MariaDB.tmLanguage`.
 5. **Ctrl/Cmd+R in the child window** to reload after each grammar edit.
 6. **Command Palette → "Developer: Inspect Editor Tokens and Scopes"** — shows the exact scope assigned to the token under the cursor. This is the primary debugging tool; reach for it before guessing at regex fixes.
@@ -43,7 +43,7 @@ code --install-extension <name>-<version>.vsix
 - `syntaxes/MariaDB.tmLanguage` — the grammar. Plist XML. ~750 lines. This is 95% of the repo's value.
 - `package.json` — the `contributes.languages` and `contributes.grammars` blocks are what VS Code reads; the `scopeName` here must match the `scopeName` inside the `.tmLanguage`.
 - `language-configuration.json` — comment tokens and bracket pairs. Small, rarely changes.
-- `example*.sql`, `example.php` — manual regression corpus. When fixing a grammar bug, add a line to these that exercises the failure case so the next grammar edit can re-verify.
+- `examples/` — manual regression corpus (`example.sql`, `example_22.sql`, `example.php`). Opened as its own folder in the Extension Development Host child window. When fixing a grammar bug, add a line to these that exercises the failure case so the next grammar edit can re-verify.
 - `mariadb_extension.md` — plan doc (see above).
 
 ## Grammar-editing conventions
