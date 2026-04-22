@@ -39,10 +39,9 @@ For iterating on `syntaxes/MariaDB.tmLanguage`, use VS Code's Extension Developm
 
 1. Open this repo in VS Code: `code .`
 2. Press **F5** (wired up by `.vscode/launch.json`). A second window opens, titled `[Extension Development Host]`, with the extension loaded from source.
-3. In the child window, open the **`examples/` folder** (File → Open Folder → `examples/`). It has to be a different folder than the parent window — VS Code refuses to open the same folder twice.
-4. For each example file, set the language to MariaDB via "Change Language Mode".
-5. Edit the grammar in the parent window, then press **Ctrl+R** in the child window to reload it.
-6. Put the cursor on a token and run **Ctrl+Shift+P → "Developer: Inspect Editor Tokens and Scopes"** to see the exact scope chain. This is the primary debugging tool for grammar work — use it before guessing at regex fixes.
+3. In the child window, open the **`examples/` folder** (File → Open Folder → `examples/`). It has to be a different folder than the parent window — VS Code refuses to open the same folder twice. The `.sql` files in `examples/` auto-associate to MariaDB via `examples/.vscode/settings.json`.
+4. Edit the grammar in the parent window, then press **Ctrl+R** in the child window to reload it.
+5. Put the cursor on a token and run **Ctrl+Shift+P → "Developer: Inspect Editor Tokens and Scopes"** to see the exact scope chain. This is the primary debugging tool for grammar work — use it before guessing at regex fixes.
 
 No build step. The `.tmLanguage` XML is read directly by VS Code.
 
