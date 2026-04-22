@@ -1,4 +1,16 @@
 .vscode/**
 .vscode-test/**
+.github/**
+node_modules/**
+*.vsix
+
 .gitignore
+.vscodeignore
 vsc-extension-quickstart.md
+
+CLAUDE.md
+mariadb_extension.md
+package.sh
+pnpm-lock.yaml
+
+examples/**
