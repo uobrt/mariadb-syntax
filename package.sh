@@ -5,4 +5,5 @@ set -euo pipefail
 
 cd "$(dirname "$0")"
 
-pnpm dlx @vscode/vsce package
+pnpm install --frozen-lockfile
+pnpm exec vsce package

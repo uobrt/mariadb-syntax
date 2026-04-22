@@ -22,16 +22,27 @@
     ],
     "icon": "icon.png",
     "contributes": {
-        "languages": [{
-            "id": "mariadb",
-            "aliases": ["MariaDB", "mariadb"],
-            "extensions": [],
-            "configuration": "./language-configuration.json"
-        }],
-        "grammars": [{
-            "language": "mariadb",
-            "scopeName": "source.mariadb",
-            "path": "./syntaxes/MariaDB.tmLanguage"
-        }]
-    }
+        "languages": [
+            {
+                "id": "mariadb",
+                "aliases": [
+                    "MariaDB",
+                    "mariadb"
+                ],
+                "extensions": [],
+                "configuration": "./language-configuration.json"
+            }
+        ],
+        "grammars": [
+            {
+                "language": "mariadb",
+                "scopeName": "source.mariadb",
+                "path": "./syntaxes/MariaDB.tmLanguage"
+            }
+        ]
+    },
+    "devDependencies": {
+        "@vscode/vsce": "^3.9.1"
+    },
+    "packageManager": "pnpm@10.30.3"
 }
