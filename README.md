@@ -44,6 +44,24 @@ To iterate on `syntaxes/MariaDB.tmLanguage`, use VS Code's Extension Development
 
 No build step. The `.tmLanguage` file is read directly by VS Code.
 
+## Tests
+
+Regression tests live under `tests/`:
+
+- **`tests/assertions/*.sql`** — precise, hand-written scope assertions (fails loudly when a specific token stops tokenizing the way you said it should).
+- **`tests/snapshots/*.sql`** — broad snapshots of the token-by-token output. Any grammar change that alters how these files tokenize shows up as a diff.
+
+Run them:
+
+```bash
+./test.sh                 # check both suites
+./test.sh --update        # accept new output as the snapshot baseline
+```
+
+`./package.sh` runs tests automatically before packaging, and CI does the same on every push.
+
+When you intentionally change the grammar and the snapshot diff is what you expected, re-run with `--update` and commit the new `.snap`.
+
 ## Building a .vsix
 
 Requires `pnpm` and Node (or just Node with corepack enabled — it will fetch the pinned pnpm automatically).
@@ -63,3 +81,10 @@ CI builds the same artifact on every push to `develop` (available as a workflow 
 ## Credits
 
 Forked from [jakebathman/mysql-syntax](https://github.com/jakebathman/mysql-syntax) (unreleased `jlb/2.0` branch), itself derived from [adael/sublimetext-mysql-syntax](https://github.com/adael/sublimetext-mysql-syntax). Licensed MIT; see `LICENSE`.
+
+
+## Plugin store
+
+I'm not currently interested in the hassle of getting this into the official Microsoft VSCODE extension list. If you'd like to do that legwork reach out I'd be happy to coordinate. 
+
+It's pretty trivial to install by hand anyway.

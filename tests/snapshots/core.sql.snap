@@ -1,0 +1,146 @@
+>-- Core MariaDB syntax regression snapshot.
+#^^ source.mariadb comment.line.double-dash.mariadb punctuation.definition.comment.mariadb
+#  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mariadb comment.line.double-dash.mariadb
+>-- Any change here should be reviewed token-by-token via `./test.sh`.
+#^^ source.mariadb comment.line.double-dash.mariadb punctuation.definition.comment.mariadb
+#  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ source.mariadb comment.line.double-dash.mariadb
+>
+>SELECT id, name, created_at
+#^^^^^^ source.mariadb keyword.other.DML.mariadb
+#      ^^^^^^^^^^^^^^^^^^^^^^ source.mariadb
+>FROM users u
+#^^^^ source.mariadb keyword.other.DML.mariadb
+#    ^^^^^^^^^ source.mariadb
+>LEFT JOIN orders o ON o.user_id = u.id
+#^^^^^^^^^ source.mariadb keyword.other.DML.mariadb
+#         ^^^^^^^^^^ source.mariadb
+#                   ^^ source.mariadb keyword.other.DDL.create.II.mariadb
+#                     ^ source.mariadb
+#                      ^ source.mariadb constant.other.database-name.mariadb
+#                       ^ source.mariadb
+#                        ^^^^^^^ source.mariadb constant.other.table-name.mariadb
+#                               ^ source.mariadb
+#                                ^ source.mariadb keyword.operator.comparison.mariadb
+#                                 ^ source.mariadb
+#                                  ^ source.mariadb constant.other.database-name.mariadb
+#                                   ^ source.mariadb
+#                                    ^^ source.mariadb constant.other.table-name.mariadb
+>WHERE u.active = 1
+#^^^^^ source.mariadb keyword.other.DML.mariadb
+#     ^ source.mariadb
+#      ^ source.mariadb constant.other.database-name.mariadb
+#       ^ source.mariadb
+#        ^^^^^^ source.mariadb constant.other.table-name.mariadb
+#              ^ source.mariadb
+#               ^ source.mariadb keyword.operator.comparison.mariadb
+#                ^ source.mariadb
+#                 ^ source.mariadb constant.numeric.mariadb
+>  AND name LIKE 'a%'
+#^^ source.mariadb
+#  ^^^ source.mariadb keyword.other.DML.mariadb
+#     ^^^^^^ source.mariadb
+#           ^^^^ source.mariadb keyword.other.DML.mariadb
+#               ^ source.mariadb
+#                ^ source.mariadb string.quoted.single.mariadb punctuation.definition.string.begin.mariadb
+#                 ^^^ source.mariadb string.quoted.single.mariadb
+>  AND created_at IS NOT NULL
+#^^ source.mariadb
+#  ^^^ source.mariadb keyword.other.DML.mariadb
+#     ^^^^^^^^^^^^ source.mariadb
+#                 ^^^^^^^^^^^ source.mariadb keyword.other.DDL.create.II.mariadb
+>GROUP BY u.id
+#^^^^^^^^ source.mariadb keyword.other.DML.mariadb
+#        ^ source.mariadb
+#         ^ source.mariadb constant.other.database-name.mariadb
+#          ^ source.mariadb
+#           ^^ source.mariadb constant.other.table-name.mariadb
+>ORDER BY created_at DESC
+#^^^^^^^^ source.mariadb keyword.other.DML.mariadb
+#        ^^^^^^^^^^^^ source.mariadb
+#                    ^^^^ source.mariadb keyword.other.order.mariadb
+>LIMIT 10;
+#^^^^^ source.mariadb keyword.other.DML.mariadb
+#     ^ source.mariadb
+#      ^^ source.mariadb constant.numeric.mariadb
+#        ^^ source.mariadb
+>
+>INSERT INTO users (id, name) VALUES (1, 'alice');
+#^^^^^^^^^^^ source.mariadb keyword.other.DML.mariadb
+#           ^^^^^^^^^^^^^^^^^^ source.mariadb
+#                             ^^^^^^ source.mariadb keyword.other.DML.II.mariadb
+#                                   ^^ source.mariadb
+#                                     ^ source.mariadb constant.numeric.mariadb
+#                                      ^^ source.mariadb
+#                                        ^ source.mariadb string.quoted.single.mariadb punctuation.definition.string.begin.mariadb
+#                                         ^^^^^^ source.mariadb string.quoted.single.mariadb
+#                                               ^^^ source.mariadb
+>
+>UPDATE users SET active = 0 WHERE id = 42;
+#^^^^^^ source.mariadb keyword.other.DML.mariadb
+#      ^^^^^^^ source.mariadb
+#             ^^^ source.mariadb keyword.other.DML.mariadb
+#                ^^^^^^^^ source.mariadb
+#                        ^ source.mariadb keyword.operator.comparison.mariadb
+#                         ^ source.mariadb
+#                          ^ source.mariadb constant.numeric.mariadb
+#                           ^ source.mariadb
+#                            ^^^^^ source.mariadb keyword.other.DML.mariadb
+#                                 ^^^^ source.mariadb
+#                                     ^ source.mariadb keyword.operator.comparison.mariadb
+#                                      ^ source.mariadb
+#                                       ^^ source.mariadb constant.numeric.mariadb
+#                                         ^^ source.mariadb
+>
+>DELETE FROM users WHERE id = 7;
+#^^^^^^ source.mariadb keyword.other.DML.mariadb
+#      ^ source.mariadb
+#       ^^^^ source.mariadb keyword.other.DML.mariadb
+#           ^^^^^^^ source.mariadb
+#                  ^^^^^ source.mariadb keyword.other.DML.mariadb
+#                       ^^^^ source.mariadb
+#                           ^ source.mariadb keyword.operator.comparison.mariadb
+#                            ^ source.mariadb
+#                             ^ source.mariadb constant.numeric.mariadb
+#                              ^^ source.mariadb
+>
+>CREATE TABLE foo (
+#^^^^^^ source.mariadb meta.create.mariadb keyword.other.create.mariadb
+#      ^ source.mariadb meta.create.mariadb
+#       ^^^^^ source.mariadb meta.create.mariadb keyword.other.mariadb
+#            ^ source.mariadb meta.create.mariadb
+#             ^^^ source.mariadb meta.create.mariadb entity.name.function.mariadb
+#                ^^^ source.mariadb
+>  id INT PRIMARY KEY AUTO_INCREMENT,
+#^^^^^ source.mariadb
+#     ^^^ source.mariadb storage.type.mariadb
+#        ^ source.mariadb
+#         ^^^^^^^^^^^ source.mariadb storage.modifier.mariadb
+#                    ^ source.mariadb
+#                     ^^^^^^^^^^^^^^ source.mariadb storage.type.mariadb
+#                                   ^^ source.mariadb
+>  name VARCHAR(255) NOT NULL,
+#^^^^^^^ source.mariadb
+#       ^^^^^^^ source.mariadb storage.type.mariadb
+#              ^ source.mariadb
+#               ^^^ source.mariadb constant.numeric.mariadb
+#                  ^ source.mariadb
+#                   ^ source.mariadb
+#                    ^^^^^^^^ source.mariadb keyword.other.DDL.create.II.mariadb
+#                            ^^ source.mariadb
+>  note TEXT
+#^^^^^^^ source.mariadb
+#       ^^^^ source.mariadb storage.type.mariadb
+>);
+#^^^ source.mariadb
+>
+>/* block comment */
+#^^ source.mariadb comment.block.c punctuation.definition.comment.mariadb
+#  ^^^^^^^^^^^^^^^ source.mariadb comment.block.c
+#                 ^^ source.mariadb comment.block.c punctuation.definition.comment.mariadb
+># hash comment
+#^ source.mariadb comment.line.number-sign.mariadb punctuation.definition.comment.mariadb
+# ^^^^^^^^^^^^^^ source.mariadb comment.line.number-sign.mariadb
+>-- dash comment
+#^^ source.mariadb comment.line.double-dash.mariadb punctuation.definition.comment.mariadb
+#  ^^^^^^^^^^^^^^ source.mariadb comment.line.double-dash.mariadb
+>

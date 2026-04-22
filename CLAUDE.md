@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this repo is
 
-A VS Code extension that ships a single TextMate grammar for MariaDB syntax highlighting. No runtime code, no build step, no test suite — the `.tmLanguage` XML is the product. It is a fork of `jakebathman/mysql-syntax`, started from the unreleased `jlb/2.0` branch (not `master`) because that branch contains the language-ID-conflict fix that the upstream community had been asking for since 2018.
+A VS Code extension that ships a single TextMate grammar for MariaDB syntax highlighting. No runtime code and no compiler — the `.tmLanguage` XML is the product. There IS a test suite (`tests/`, using `vscode-tmgrammar-test`) and a packaging flow (`package.sh`, which runs `test.sh` first). It is a fork of `jakebathman/mysql-syntax`, started from the unreleased `jlb/2.0` branch (not `master`) because that branch contains the language-ID-conflict fix that the upstream community had been asking for since 2018.
 
 The rebrand and release-build scaffolding (language ID `mariadb`, scope `source.mariadb`, GitHub Actions `.vsix` build) has landed. MariaDB-specific grammar additions and the upstream bug fixes described in `mariadb_extension.md` Steps 3–4 have NOT yet been done.
 
@@ -28,22 +28,22 @@ There is no `npm run` workflow — the grammar file IS the deliverable. Iteratio
 5. **Ctrl/Cmd+R in the child window** to reload after each grammar edit.
 6. **Command Palette → "Developer: Inspect Editor Tokens and Scopes"** — shows the exact scope assigned to the token under the cursor. This is the primary debugging tool; reach for it before guessing at regex fixes.
 
-Package for local install (only when ready to cut a release):
+Automated tests (`./test.sh`, runs on every CI push and before every `./package.sh`):
 
-```
-npm install -g @vscode/vsce
-vsce package          # produces <name>-<version>.vsix
-code --install-extension <name>-<version>.vsix
-```
+- `tests/assertions/*.sql` — precise hand-written scope assertions using `vscode-tmgrammar-test` comment syntax. When fixing a specific bug, add an assertion here that pins the expected scopes so the bug cannot regress silently.
+- `tests/snapshots/*.sql` + matching `.snap` files — broad snapshots of the token-by-token output. After any intentional grammar change, run `./test.sh --update` to regenerate the `.snap` files, then **diff the `.snap` by hand** before committing — the point is to catch unintended scope drift, and rubber-stamping `--update` defeats the purpose.
+- Snapshot commands need `-s source.mariadb` because the tool can't infer a scope from `.sql` (that extension is claimed by several grammars). `test.sh` already passes this flag.
 
-`vsce package` refuses without a `LICENSE` file and a non-trivial `README.md` — both need to exist before the first package.
+Package for local install: `./package.sh` produces `mariadb-syntax-<version>.vsix` in the repo root.
 
 ## Files that matter
 
 - `syntaxes/MariaDB.tmLanguage` — the grammar. Plist XML. ~750 lines. This is 95% of the repo's value.
 - `package.json` — the `contributes.languages` and `contributes.grammars` blocks are what VS Code reads; the `scopeName` here must match the `scopeName` inside the `.tmLanguage`.
 - `language-configuration.json` — comment tokens and bracket pairs. Small, rarely changes.
-- `examples/` — manual regression corpus (`example.sql`, `example_22.sql`, `example.php`). Opened as its own folder in the Extension Development Host child window. When fixing a grammar bug, add a line to these that exercises the failure case so the next grammar edit can re-verify.
+- `examples/` — manual regression corpus (`example.sql`, `example_22.sql`, `example.php`). Opened as its own folder in the Extension Development Host child window. Useful for eyeballing behavior; NOT the same as the automated `tests/` suite.
+- `tests/assertions/*.sql`, `tests/snapshots/*.sql(.snap)` — automated regression tests, see section above.
+- `test.sh`, `package.sh` — the shell entry points; CI just invokes `./package.sh`.
 - `mariadb_extension.md` — plan doc (see above).
 
 ## Grammar-editing conventions

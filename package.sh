@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
-# Build a .vsix from the current source.
+# Build a .vsix from the current source. Runs the grammar tests first.
 # Output: mariadb-syntax-<version>.vsix in the repo root.
 set -euo pipefail
 
 cd "$(dirname "$0")"
 
-pnpm install --frozen-lockfile
+./test.sh
 pnpm exec vsce package

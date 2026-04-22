@@ -11,6 +11,8 @@ vsc-extension-quickstart.md
 CLAUDE.md
 mariadb_extension.md
 package.sh
+test.sh
 pnpm-lock.yaml
 
 examples/**
+tests/**
