@@ -199,10 +199,10 @@
 				 \b(bigint|bigserial|bit|boolean|box|bytea|cidr|circle|date|double\sprecision|inet|int|integer|line|lseg|macaddr|money|oid|path|point|polygon|real|serial|smallint|sysdate|text)\b
 
 				# numeric suffix, capture 2 + 3i
-				|\b(bit\svarying|character\s(?:varying)?|tinyint|var\schar|float|interval)\((\d+)\)
+				|\b(bit\svarying|character\s(?:varying)?|var\schar|interval)\((\d+)\)
 
 				# optional numeric suffix, capture 4 + 5i
-				|\b(char|number|varchar\d?)\b(?:\((\d+)\))?
+				|\b(char|decimal|enum|float|mediumint|number|tinyint|varchar\d?)\b(?:\((\d+)\))?
 
 				# special case, capture 6 + 7i + 8i
 				|\b(numeric)\b(?:\((\d+),(\d+)\))?
@@ -217,7 +217,7 @@
             </dict>
             <dict>
                 <key>match</key>
-                <string>(?i:\b((?:primary|foreign)\s+key|references|on\sdelete(\s+cascade)?|check|constraint)\b)</string>
+                <string>(?i:\b((?:primary|foreign)\s+key|references|on\s+(?:delete|update)(\s+(?:cascade|restrict|no\s+action|set\s+(?:null|default)))?|check|constraint)\b)</string>
                 <key>name</key>
                 <string>storage.modifier.mariadb</string>
             </dict>
@@ -229,7 +229,7 @@
             </dict>
             <dict>
                 <key>match</key>
-                <string>(?i:\b(select(\s+distinct)?|insert\s+(ignore\s+)?into|update|delete|from|set|where|group\sby|or|like|and|union(\s+all)?|having|order\sby|limit|(inner|cross)\s+join|straight_join|(left|right)(\s+outer)?\s+join|natural(\s+(left|right)(\s+outer)?)?\s+join)\b)</string>
+                <string>(?i:\b(select(\s+distinct)?|insert\s+(ignore\s+)?into|update|delete|from|set|where|group\sby|or|like|and|union(\s+all)?|having|order\sby|limit|(inner|cross)\s+join|straight_join|(left|right)(\s+outer)?\s+join|natural(\s+(left|right)(\s+outer)?)?\s+join|join)\b)</string>
                 <key>name</key>
                 <string>keyword.other.DML.mariadb</string>
             </dict>
