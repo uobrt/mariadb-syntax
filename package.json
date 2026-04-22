@@ -1,9 +1,9 @@
 {
-    "name": "mysql-syntax",
-    "displayName": "MySQL Syntax",
-    "description": "MySQL syntax highlighting support",
-    "version": "1.3.1",
-    "publisher": "jakebathman",
+    "name": "mariadb-syntax",
+    "displayName": "MariaDB Syntax",
+    "description": "MariaDB syntax highlighting for VS Code",
+    "version": "0.1.0",
+    "publisher": "rubin",
     "engines": {
         "vscode": "^1.18.0"
     },
@@ -12,24 +12,26 @@
     ],
     "repository": {
         "type": "git",
-        "url": "https://github.com/jakebathman/mysql-syntax"
+        "url": "https://github.com/uobrt/mariadb-syntax"
     },
     "keywords": [
         "syntax",
-        "mysql"
+        "mariadb",
+        "mysql",
+        "sql"
     ],
     "icon": "icon.png",
     "contributes": {
         "languages": [{
-            "id": "mysql",
-            "aliases": ["MySQL", "mysql"],
-            "extensions": [".sql",".ddl",".dml"],
+            "id": "mariadb",
+            "aliases": ["MariaDB", "mariadb"],
+            "extensions": [],
             "configuration": "./language-configuration.json"
         }],
         "grammars": [{
-            "language": "mysql",
-            "scopeName": "source.mysql",
-            "path": "./syntaxes/MySQL.tmLanguage"
+            "language": "mariadb",
+            "scopeName": "source.mariadb",
+            "path": "./syntaxes/MariaDB.tmLanguage"
         }]
     }
 }
