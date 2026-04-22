@@ -6,6 +6,12 @@ Syntax highlighting for MariaDB in VS Code. Open a `.sql` file and your keywords
 
 ## Install
 
+### From the pre-built release page on github:
+
+Download the .vsix plugin file from the releases page, 
+pnd run:  `code --install-extension /path/to/your/downloaded/mariadb-syntax-<version>.vsix`
+
+### From cloned copy of the repository:
 Symlink the repo into VS Code's extension directory:
 
 ```bash
@@ -16,7 +22,7 @@ Restart VS Code once. After that, pulls of new changes take effect via **Ctrl+Sh
 
 If you later install a packaged `.vsix` of this extension, remove the symlink first to avoid two copies being registered.
 
-## Make it apply to your `.sql` files
+## Make it auto-apply to your `*.sql` files
 
 VS Code's built-in SQL mode stays the default for `.sql`. To hand those files over to MariaDB, add this to your user settings or a workspace `.vscode/settings.json`:
 
