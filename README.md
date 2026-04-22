@@ -1,10 +1,10 @@
 # MariaDB Syntax
 
-TextMate grammar for MariaDB syntax highlighting in VS Code. Not a SQL client, linter, or formatter — just colors.
+Syntax highlighting for MariaDB in VS Code. Open a `.sql` file and your keywords, functions, table names, and strings each get their own color — long queries become easier to read and typos become easier to spot. Works for plain MySQL too (most of the language overlaps).
 
-Language ID: `mariadb` &nbsp;·&nbsp; Scope: `source.mariadb`
+![MariaDB syntax highlighting in VS Code](screenshot.png)
 
-## Run it locally (no build)
+## Install
 
 Symlink the repo into VS Code's extension directory:
 
@@ -12,18 +12,15 @@ Symlink the repo into VS Code's extension directory:
 ln -s "$PWD" ~/.vscode/extensions/rubin.mariadb-syntax-0.1.0
 ```
 
-Restart VS Code once. After that, edits to `syntaxes/MariaDB.tmLanguage` take effect via **Ctrl+Shift+P → "Developer: Reload Window"** in any window that has a MariaDB file open — no repackage, no reinstall.
+Restart VS Code once. After that, pulls of new changes take effect via **Ctrl+Shift+P → "Developer: Reload Window"** in any window that has a MariaDB file open — no repackage, no reinstall.
 
 If you later install a packaged `.vsix` of this extension, remove the symlink first to avoid two copies being registered.
 
-## Enabling it on `.sql` files
+## Make it apply to your `.sql` files
 
-This extension does **not** auto-claim `.sql`. That's deliberate — it avoids conflicting with VS Code's built-in SQL grammar and with the `mssql` / `mysql` marketplace extensions, a long-standing complaint against the upstream grammar this is forked from.
-
-Opt in per workspace (or in your user settings) with `files.associations`:
+VS Code's built-in SQL mode stays the default for `.sql`. To hand those files over to MariaDB, add this to your user settings or a workspace `.vscode/settings.json`:
 
 ```jsonc
-// .vscode/settings.json
 {
   "files.associations": {
     "*.sql": "mariadb"
@@ -31,23 +28,25 @@ Opt in per workspace (or in your user settings) with `files.associations`:
 }
 ```
 
-Or per file, via the Command Palette: **Change Language Mode** → **MariaDB**.
+Or per file: **Change Language Mode** (Ctrl+Shift+P) → **MariaDB**.
 
-## Developing the grammar
+Why opt-in? There are several `.sql`-using extensions (the built-in SQL mode, the `mssql` / `mysql` marketplace ones). Auto-claiming the extension leads to them all fighting over the same files — a long-standing complaint against the upstream this is forked from.
 
-For iterating on `syntaxes/MariaDB.tmLanguage`, use VS Code's Extension Development Host:
+## Working on the highlighting rules
+
+To iterate on `syntaxes/MariaDB.tmLanguage`, use VS Code's Extension Development Host:
 
 1. Open this repo in VS Code: `code .`
 2. Press **F5** (wired up by `.vscode/launch.json`). A second window opens, titled `[Extension Development Host]`, with the extension loaded from source.
 3. In the child window, open the **`examples/` folder** (File → Open Folder → `examples/`). It has to be a different folder than the parent window — VS Code refuses to open the same folder twice. The `.sql` files in `examples/` auto-associate to MariaDB via `examples/.vscode/settings.json`.
-4. Edit the grammar in the parent window, then press **Ctrl+R** in the child window to reload it.
-5. Put the cursor on a token and run **Ctrl+Shift+P → "Developer: Inspect Editor Tokens and Scopes"** to see the exact scope chain. This is the primary debugging tool for grammar work — use it before guessing at regex fixes.
+4. Edit the syntax file in the parent window, then press **Ctrl+R** in the child window to reload it.
+5. Put the cursor on a token and run **Ctrl+Shift+P → "Developer: Inspect Editor Tokens and Scopes"** to see the exact scope chain. This is the primary debugging tool for this kind of work — use it before guessing at regex fixes.
 
-No build step. The `.tmLanguage` XML is read directly by VS Code.
+No build step. The `.tmLanguage` file is read directly by VS Code.
 
 ## Building a .vsix
 
-Requires `pnpm` and Node.
+Requires `pnpm` and Node (or just Node with corepack enabled — it will fetch the pinned pnpm automatically).
 
 ```bash
 ./package.sh
